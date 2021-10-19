@@ -57,17 +57,12 @@ tests:
     test:
     - as: test
       cli: latest
-      commands: make test-e2e
-      dependencies:
-      - env: DRIVER_IMAGE
-        name: csi-driver-shared-resource
-      - env: NODE_REGISTRAR_IMAGE
-        name: csi-node-driver-registrar
+      commands: make test-e2e-no-deploy
       from: src
       resources:
         requests:
           cpu: 100m
-    workflow: ipi-aws
+    csi-driver-shared-resource-e2e-techpreview-workflow
 - as: e2e-aws-csi-driver-no-refreshresource
   steps:
     cluster_profile: aws
@@ -84,41 +79,31 @@ tests:
       resources:
         requests:
           cpu: 100m
-    workflow: ipi-aws
+    workflow: csi-driver-shared-resource-e2e-techpreview-workflow
 - as: e2e-aws-csi-driver-disruptive
   steps:
     cluster_profile: aws
     test:
     - as: test
       cli: latest
-      commands: make test-e2e-disruptive
-      dependencies:
-      - env: DRIVER_IMAGE
-        name: csi-driver-shared-resource
-      - env: NODE_REGISTRAR_IMAGE
-        name: csi-node-driver-registrar
+      commands: make test-e2e-disruptive-no-deploy
       from: src
       resources:
         requests:
           cpu: 100m
-    workflow: ipi-aws
+    workflow: csi-driver-shared-resource-e2e-techpreview-workflow
 - as: e2e-aws-csi-driver-slow
   steps:
     cluster_profile: aws
     test:
     - as: test
       cli: latest
-      commands: make test-e2e-slow
-      dependencies:
-      - env: DRIVER_IMAGE
-        name: csi-driver-shared-resource
-      - env: NODE_REGISTRAR_IMAGE
-        name: csi-node-driver-registrar
-      from: src
+      commands: make test-e2e-slow-no-deploy
+     from: src
       resources:
         requests:
           cpu: 100m
-    workflow: ipi-aws
+    workflow: csi-driver-shared-resource-e2e-techpreview-workflow
 zz_generated_metadata:
   branch: release-4.10
   org: openshift
